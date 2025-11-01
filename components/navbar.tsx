@@ -17,14 +17,17 @@ export default function Navbar() {
 
 function NavbarButton({ href, text }: NavItem) {
   return (
-    <div className="px-8 py-2 border border-white rounded-2xl">
-      <Link href={href}>
+    <Link href={href}>
+      <div className="px-8 py-2 border border-white rounded-2xl">
         <p className="text-2xl text-white">{text}</p>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
 
+{
+  /*Add new navbar items here*/
+}
 export const navItems: NavItem[] = [
   {
     href: "/",
