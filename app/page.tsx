@@ -4,7 +4,7 @@ import earth_pic from "@/public/images/earth_big.jpeg";
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen h-dvh items-center justify-center">
-      <main className="items-center flex flex-col pb-14">
+      <main className="items-center flex flex-col mt-20 pb-14">
         <Image
           src={earth_pic}
           alt="Image of the Earth"
@@ -13,10 +13,18 @@ export default function Home() {
         <h1 className="text-7xl text-white font-bold mb-15">
           Symphony of the Universe
         </h1>
-        <h2 className="text-3xl text-white font-medium">
+        <h2 className="text-3xl text-white font-medium mb-30">
           {" "}
-          Universe's data transformed into sound{" "}
+          The Universe's data transformed into sound{" "}
         </h2>
+        <div>
+          <button
+            type="button"
+            className="text-4xl px-20 py-2 border-2 border-white rounded-full  text-white cursor-pointer hover:border-purple-500 hover:text-purple-500 hover:shadow-2xl transition-all duration-200"
+          >
+            Play
+          </button>
+        </div>
       </main>
     </div>
   );
