@@ -22,7 +22,7 @@ export default function ListenPage() {
         />
       </div>
       <div className="flex w-full items-center justify-center gap-4 px-20">
-        <p className="text-white text-2xl">Moon meteorites</p>
+        <p className="text-white text-2xl">Solar radiation</p>
         <SoundTrack
           src="/audio/soft-piano-100-bpm-121529.mp3"
           className="grow"
@@ -32,7 +32,7 @@ export default function ListenPage() {
       <div className="flex w-full items-center justify-center gap-4 px-20">
         <p className="text-white text-2xl">Moon meteorites</p>
         <SoundTrack
-          src="/audio/soft-piano-100-bpm-121529.mp3"
+          src="/audio/hotline-bling-drake-low-quality-made-with-Voicemod.mp3"
           className="grow"
           colour="blue"
         />
