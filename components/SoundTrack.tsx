@@ -1,5 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useEffect,
+  useState,
+} from "react";
 import AudioVisualiser from "./AudioVisualiser";
+import { getAudioContext, getMediaSource } from "@/lib/audioSingleton";
 
 interface SoundTrackProps {
   src: string;
@@ -7,46 +14,49 @@ interface SoundTrackProps {
   colour?: "red" | "green" | "blue";
 }
 
-export default function SoundTrack({
-  src,
-  className,
-  colour = "red",
-}: SoundTrackProps) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
-  const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
-    null
-  );
+export type SoundTrackHandle = {
+  play: () => void;
+};
 
-  // Initialize AudioContext once on the client
-  useEffect(() => {
-    const ctx = new AudioContext();
-    setAudioCtx(ctx);
-  }, []);
+const SoundTrack = forwardRef<SoundTrackHandle, SoundTrackProps>(
+  ({ src, className, colour = "red" }, ref) => {
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+    const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
+    const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
+      null
+    );
 
-  // Create MediaElementSourceNode once audioRef and audioCtx are ready
-  useEffect(() => {
-    if (!audioRef.current || !audioCtx) return;
+    useImperativeHandle(ref, () => ({
+      play: () => audioRef.current?.play(),
+    }));
 
-    const srcNode = audioCtx.createMediaElementSource(audioRef.current);
-    setSource(srcNode);
+    useEffect(() => {
+      if (!audioRef.current) return;
 
-    // Optionally resume context on user interaction
-    audioCtx.resume();
-  }, [audioRef.current, audioCtx]);
+      const ctx = getAudioContext();
+      const srcNode = getMediaSource(audioRef.current);
 
-  return (
-    <div className={`w-full ${className}`}>
-      <div className="border border-white w-full h-52 rounded-3xl mb-4">
-        {audioRef.current && source && audioCtx && (
-          <AudioVisualiser
-            audioCtx={audioCtx}
-            analyserSource={source}
-            colour={colour}
-          />
-        )}
+      setAudioCtx(ctx);
+      setSource(srcNode);
+
+      ctx.resume();
+    }, []);
+
+    return (
+      <div className={`w-full ${className}`}>
+        <div className="border border-white w-full h-52 rounded-3xl mb-4">
+          {audioCtx && source && (
+            <AudioVisualiser
+              audioCtx={audioCtx}
+              analyserSource={source}
+              colour={colour}
+            />
+          )}
+        </div>
+        <audio ref={audioRef} src={src} />
       </div>
-      <audio ref={audioRef} src={src} controls />
-    </div>
-  );
-}
+    );
+  }
+);
+
+export default SoundTrack;
