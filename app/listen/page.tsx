@@ -1,19 +1,27 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import SoundTrack, { SoundTrackHandle } from "@/components/SoundTrack";
 import { Play } from "lucide-react";
+import { Pause } from "lucide-react";
 
 export default function ListenPage() {
   //stores refs for all tracks (for simultaneous control)
   const trackRefs = useRef<SoundTrackHandle[]>([]);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const addRef = (el: SoundTrackHandle | null, index: number) => {
     if (el) trackRefs.current[index] = el;
   };
 
-  const playAll = () => {
-    trackRefs.current.forEach((track) => track.play());
+  const togglePlay = () => {
+    if (isPlaying) {
+      trackRefs.current.forEach((track) => track.pause());
+      setIsPlaying(false);
+    } else {
+      trackRefs.current.forEach((track) => track.play());
+      setIsPlaying(true);
+    }
   };
 
   return (
@@ -44,9 +52,13 @@ export default function ListenPage() {
         <div className="flex items-center justify-center">
           <button
             className=" p-4 rounded-full border transition-all border-white hover:border-purple-400 text-white hover:text-purple-400 duration-200 cursor-pointer "
-            onClick={playAll}
+            onClick={togglePlay}
           >
-            <Play className=" hover:font-bold"></Play>
+            {isPlaying ? (
+              <Pause className="hover:font-bold" />
+            ) : (
+              <Play className="hover:font-bold" />
+            )}
           </button>
         </div>
       </div>

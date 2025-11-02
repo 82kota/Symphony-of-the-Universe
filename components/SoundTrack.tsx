@@ -17,6 +17,7 @@ interface SoundTrackProps {
 
 export type SoundTrackHandle = {
   play: () => void;
+  pause: () => void;
 };
 
 const SoundTrack = forwardRef<SoundTrackHandle, SoundTrackProps>(
@@ -29,6 +30,7 @@ const SoundTrack = forwardRef<SoundTrackHandle, SoundTrackProps>(
 
     useImperativeHandle(ref, () => ({
       play: () => audioRef.current?.play(),
+      pause: () => audioRef.current?.pause(),
     }));
 
     useEffect(() => {
