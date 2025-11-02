@@ -33,6 +33,7 @@ export const navItems: NavItem[] = [
     href: "/",
     text: "Home",
   },
+  { href: "/listen", text: "Listen" },
   {
     href: "/about",
     text: "About",
