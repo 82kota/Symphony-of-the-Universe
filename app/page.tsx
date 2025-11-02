@@ -1,5 +1,6 @@
 import Image from "next/image";
 import earth_pic from "@/public/images/earth_big.jpeg";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -18,12 +19,12 @@ export default function Home() {
           The Universe's data transformed into sound{" "}
         </h2>
         <div>
-          <button
-            type="button"
+          <Link
+            href="/listen"
             className="text-4xl px-20 py-2 border-2 border-white rounded-full  text-white cursor-pointer hover:border-purple-400 hover:text-purple-400 hover:shadow-2xl transition-all duration-200"
           >
-            Play
-          </button>
+            Listen
+          </Link>
         </div>
       </main>
     </div>
