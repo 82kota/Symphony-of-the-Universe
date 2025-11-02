@@ -12,6 +12,7 @@ interface SoundTrackProps {
   src: string;
   className?: string;
   label: string;
+  wave?: boolean;
   colour?: "red" | "green" | "blue" | "purple" | "orange" | "white";
 }
 
@@ -21,7 +22,7 @@ export type SoundTrackHandle = {
 };
 
 const SoundTrack = forwardRef<SoundTrackHandle, SoundTrackProps>(
-  ({ src, className, label, colour = "red" }, ref) => {
+  ({ src, className, label, wave = false, colour = "red" }, ref) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
     const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
@@ -59,6 +60,7 @@ const SoundTrack = forwardRef<SoundTrackHandle, SoundTrackProps>(
                 audioCtx={audioCtx}
                 analyserSource={source}
                 colour={colour}
+                wave={wave}
               />
             )}
           </div>

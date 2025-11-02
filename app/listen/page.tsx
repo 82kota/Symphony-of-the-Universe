@@ -29,21 +29,22 @@ export default function ListenPage() {
       <SoundTrack
         src="/audio/soft-piano-100-bpm-121529.mp3"
         className="grow"
-        colour="orange"
+        colour="blue"
         label="Moon meteorites"
         ref={(el) => addRef(el, 0)}
       />
       <SoundTrack
         src="/audio/sound-baord-spongebob.mp3"
         className="grow"
-        colour="purple"
+        colour="orange"
         label="Solar radiation"
+        wave
         ref={(el) => addRef(el, 1)}
       />
       <SoundTrack
         src="/audio/hotline-bling-drake-low-quality-made-with-Voicemod.mp3"
         className="grow"
-        colour="white"
+        colour="red"
         label="Solar flares"
         ref={(el) => addRef(el, 2)}
       />

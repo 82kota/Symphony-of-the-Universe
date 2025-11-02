@@ -3,12 +3,39 @@ import { useEffect, useRef } from "react";
 interface AudioVisualiserProps {
   audioCtx: AudioContext;
   analyserSource: MediaElementAudioSourceNode;
+  wave?: boolean;
   colour?: "red" | "green" | "blue" | "purple" | "orange" | "white";
+}
+
+function colourToRGB(colour: string) {
+  let rgb = "rgb(255, 0, 0)";
+  switch (colour) {
+    case "red":
+      rgb = "rgb(255, 0, 0)";
+      break;
+    case "green":
+      rgb = "rgb(0, 255, 0)";
+      break;
+    case "blue":
+      rgb = "rgb(0, 0, 255)";
+      break;
+    case "purple":
+      rgb = "rgb(125, 0, 255)";
+      break;
+    case "orange":
+      rgb = "rgb(255, 125, 0)";
+      break;
+    case "white":
+      rgb = "rgb(255, 255, 255)";
+      break;
+  }
+  return rgb;
 }
 
 export default function AudioVisualiser({
   audioCtx,
   analyserSource,
+  wave = false,
   colour = "red",
 }: AudioVisualiserProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,7 +48,7 @@ export default function AudioVisualiser({
     analyserSource.connect(analyser);
     analyser.connect(audioCtx.destination);
 
-    analyser.fftSize = 256;
+    analyser.fftSize = wave ? 2048 : 256;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
@@ -32,8 +59,8 @@ export default function AudioVisualiser({
     let drawVisual: number;
 
     //how the visualiser is drawn
-    function draw() {
-      drawVisual = requestAnimationFrame(draw);
+    function drawBar() {
+      drawVisual = requestAnimationFrame(drawBar);
       analyser.getByteFrequencyData(dataArray);
 
       canvasCtx.fillStyle = "rgb(0 0 0)";
@@ -50,38 +77,48 @@ export default function AudioVisualiser({
         let r = 0,
           g = 0,
           b = 0;
-        switch (colour) {
-          case "red":
-            r = 255;
-            break;
-          case "green":
-            g = 255;
-            break;
-          case "blue":
-            b = 255;
-            break;
-          case "purple":
-            r = 125;
-            b = 255;
-            break;
-          case "orange":
-            r = 255;
-            g = 125;
-            break;
-          case "white":
-            r = 255;
-            g = 255;
-            b = 255;
-            break;
-        }
 
-        canvasCtx.fillStyle = `rgb(${r},${g},${b})`;
+        canvasCtx.fillStyle = colourToRGB(colour);
         canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
         x += barWidth + 1;
       }
     }
 
-    draw();
+    //draw a waveform visualiser
+    function drawWave() {
+      drawVisual = requestAnimationFrame(drawWave);
+      analyser.getByteTimeDomainData(dataArray);
+      // Fill solid color
+      canvasCtx.fillStyle = "rgb(0 0 0)";
+      canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+      // Begin the path
+      canvasCtx.lineWidth = 2;
+      canvasCtx.strokeStyle = colourToRGB(colour);
+      canvasCtx.beginPath();
+
+      // Draw each point in the waveform
+      const sliceWidth = WIDTH / bufferLength;
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const v = dataArray[i] / 128.0;
+        const y = v * (HEIGHT / 2);
+
+        if (i === 0) {
+          canvasCtx.moveTo(x, y);
+        } else {
+          canvasCtx.lineTo(x, y);
+        }
+
+        x += sliceWidth;
+      }
+
+      // Finish the line
+      canvasCtx.lineTo(WIDTH, HEIGHT / 2);
+      canvasCtx.stroke();
+    }
+
+    wave ? drawWave() : drawBar();
     return () => cancelAnimationFrame(drawVisual);
   }, [audioCtx, analyserSource, colour]);
 
