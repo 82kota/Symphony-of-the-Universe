@@ -53,7 +53,7 @@ export default function ListenPage() {
         className="grow"
         colour="purple"
         label="Energy generation on Earth"
-        ref={(el) => addRef(el, 2)}
+        ref={(el) => addRef(el, 3)}
       />
       <div className="sticky bottom-0 w-full border-t py-2 bg-gray-950 ">
         <div className="flex items-center justify-center">
