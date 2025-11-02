@@ -11,6 +11,7 @@ import { getAudioContext, getMediaSource } from "@/lib/audioSingleton";
 interface SoundTrackProps {
   src: string;
   className?: string;
+  label: string;
   colour?: "red" | "green" | "blue";
 }
 
@@ -19,7 +20,7 @@ export type SoundTrackHandle = {
 };
 
 const SoundTrack = forwardRef<SoundTrackHandle, SoundTrackProps>(
-  ({ src, className, colour = "red" }, ref) => {
+  ({ src, className, label, colour = "red" }, ref) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
     const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
@@ -43,17 +44,24 @@ const SoundTrack = forwardRef<SoundTrackHandle, SoundTrackProps>(
     }, []);
 
     return (
-      <div className={`w-full ${className}`}>
-        <div className="border border-white w-full h-52 rounded-3xl mb-4">
-          {audioCtx && source && (
-            <AudioVisualiser
-              audioCtx={audioCtx}
-              analyserSource={source}
-              colour={colour}
-            />
-          )}
+      <div
+        className={`flex w-full items-center justify-center gap-4 px-20 ${className}`}
+      >
+        <div>
+          <p className="text-white text-2xl w-3xs">{label}</p>
         </div>
-        <audio ref={audioRef} src={src} />
+        <div className={`w-full `}>
+          <div className="border border-white w-full h-52 rounded-3xl mb-4">
+            {audioCtx && source && (
+              <AudioVisualiser
+                audioCtx={audioCtx}
+                analyserSource={source}
+                colour={colour}
+              />
+            )}
+          </div>
+          <audio ref={audioRef} src={src} />
+        </div>
       </div>
     );
   }

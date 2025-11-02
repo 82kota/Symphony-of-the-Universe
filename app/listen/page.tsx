@@ -16,37 +16,30 @@ export default function ListenPage() {
     trackRefs.current.forEach((track) => track.play());
   };
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   return (
     <div className="h-full flex flex-col items-center justify-center pt-30 gap-5 bg-black">
-      {/*Todo: refactor*/}
-      <div className="flex w-full items-center justify-center gap-4 px-20">
-        <p className="text-white text-2xl">Moon meteorites</p>
-        <SoundTrack
-          src="/audio/soft-piano-100-bpm-121529.mp3"
-          className="grow"
-          colour="red"
-          ref={(el) => addRef(el, 0)}
-        />
-      </div>
-      <div className="flex w-full items-center justify-center gap-4 px-20">
-        <p className="text-white text-2xl">Solar radiation</p>
-        <SoundTrack
-          src="/audio/soft-piano-100-bpm-121529.mp3"
-          className="grow"
-          colour="green"
-          ref={(el) => addRef(el, 1)}
-        />
-      </div>
-      <div className="flex w-full items-center justify-center gap-4 px-20">
-        <p className="text-white text-2xl">Moon meteorites</p>
-        <SoundTrack
-          src="/audio/hotline-bling-drake-low-quality-made-with-Voicemod.mp3"
-          className="grow"
-          colour="blue"
-          ref={(el) => addRef(el, 2)}
-        />
-      </div>
+      {/*Todo: refactor into components*/}
+      <SoundTrack
+        src="/audio/soft-piano-100-bpm-121529.mp3"
+        className="grow"
+        colour="red"
+        label="Moon meteorites"
+        ref={(el) => addRef(el, 0)}
+      />
+      <SoundTrack
+        src="/audio/sound-baord-spongebob.mp3"
+        className="grow"
+        colour="green"
+        label="Solar radiation"
+        ref={(el) => addRef(el, 1)}
+      />
+      <SoundTrack
+        src="/audio/hotline-bling-drake-low-quality-made-with-Voicemod.mp3"
+        className="grow"
+        colour="blue"
+        label="Solar flares"
+        ref={(el) => addRef(el, 2)}
+      />
       <div className="sticky bottom-0 w-full border-t py-2 bg-gray-950 ">
         <div className="flex items-center justify-center">
           <button
