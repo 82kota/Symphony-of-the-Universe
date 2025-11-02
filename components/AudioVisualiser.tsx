@@ -29,6 +29,7 @@ export default function AudioVisualiser({
 
     let drawVisual: number;
 
+    //how the visualiser is drawn
     function draw() {
       drawVisual = requestAnimationFrame(draw);
       analyser.getByteFrequencyData(dataArray);
@@ -41,7 +42,7 @@ export default function AudioVisualiser({
       let x = 0;
 
       for (let i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i] / 2;
+        barHeight = dataArray[i];
         canvasCtx.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;
         canvasCtx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight);
         x += barWidth + 1;
@@ -55,9 +56,9 @@ export default function AudioVisualiser({
   return (
     <canvas
       ref={canvasRef}
-      width={800}
+      width={400}
       height={300}
-      className="w-full h-full"
+      className="w-full h-full rounded-3xl"
     />
   );
 }
