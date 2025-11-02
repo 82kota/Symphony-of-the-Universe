@@ -5,6 +5,7 @@ export default function AboutPage() {
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-black mt-10 gap-5">
       <p className="text-4xl text-white">About</p>
+
       <Image
         src={sarah_img}
         alt="Sarah image"
