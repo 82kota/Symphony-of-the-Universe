@@ -27,25 +27,32 @@ export default function ListenPage() {
   return (
     <div className="h-full flex flex-col items-center justify-center pt-30 gap-5 bg-black">
       <SoundTrack
-        src="/audio/soft-piano-100-bpm-121529.mp3"
+        src="/audio/crazy_space_bass.wav"
         className="grow"
         colour="blue"
-        label="Moon meteorites"
+        label="Meteorites hitting moon over millions of years"
         ref={(el) => addRef(el, 0)}
       />
       <SoundTrack
-        src="/audio/sound-baord-spongebob.mp3"
+        src="/audio/solar-winds.wav"
         className="grow"
         colour="orange"
-        label="Solar radiation"
         wave
+        label="Solar winds data"
         ref={(el) => addRef(el, 1)}
       />
       <SoundTrack
-        src="/audio/hotline-bling-drake-low-quality-made-with-Voicemod.mp3"
+        src="/audio/deep-space-synth.wav"
         className="grow"
         colour="red"
-        label="Solar flares"
+        label="Near-miss asteroids passing Earth"
+        ref={(el) => addRef(el, 2)}
+      />
+      <SoundTrack
+        src="/audio/energy.wav"
+        className="grow"
+        colour="purple"
+        label="Energy generation on Earth"
         ref={(el) => addRef(el, 2)}
       />
       <div className="sticky bottom-0 w-full border-t py-2 bg-gray-950 ">

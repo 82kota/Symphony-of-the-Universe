@@ -73,11 +73,6 @@ export default function AudioVisualiser({
       for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i];
 
-        //colours
-        let r = 0,
-          g = 0,
-          b = 0;
-
         canvasCtx.fillStyle = colourToRGB(colour);
         canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
         x += barWidth + 1;
