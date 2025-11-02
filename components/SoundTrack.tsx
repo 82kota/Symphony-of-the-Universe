@@ -4,9 +4,14 @@ import AudioVisualiser from "./AudioVisualiser";
 interface SoundTrackProps {
   src: string;
   className?: string;
+  colour?: "red" | "green" | "blue";
 }
 
-export default function SoundTrack({ src, className }: SoundTrackProps) {
+export default function SoundTrack({
+  src,
+  className,
+  colour = "red",
+}: SoundTrackProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
   const [source, setSource] = useState<MediaElementAudioSourceNode | null>(
@@ -34,7 +39,11 @@ export default function SoundTrack({ src, className }: SoundTrackProps) {
     <div className={`w-full ${className}`}>
       <div className="border border-white w-full h-52 rounded-3xl mb-4">
         {audioRef.current && source && audioCtx && (
-          <AudioVisualiser audioCtx={audioCtx} analyserSource={source} />
+          <AudioVisualiser
+            audioCtx={audioCtx}
+            analyserSource={source}
+            colour={colour}
+          />
         )}
       </div>
       <audio ref={audioRef} src={src} controls />

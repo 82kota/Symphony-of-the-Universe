@@ -7,7 +7,7 @@ type NavItem = {
 
 export default function Navbar() {
   return (
-    <nav className="fixed flex flex-row items-center justify-baseline w-full h-auto py-2 px-15 gap-2 bg-black">
+    <nav className="fixed flex flex-row items-center justify-baseline w-full h-auto py-2 px-15 gap-2 bg-black z-50">
       {navItems.map(({ href, text }) => (
         <NavbarButton key={href} href={href} text={text}></NavbarButton>
       ))}

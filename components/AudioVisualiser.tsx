@@ -3,11 +3,13 @@ import { useEffect, useRef } from "react";
 interface AudioVisualiserProps {
   audioCtx: AudioContext;
   analyserSource: MediaElementAudioSourceNode;
+  colour?: "red" | "green" | "blue";
 }
 
 export default function AudioVisualiser({
   audioCtx,
   analyserSource,
+  colour = "red",
 }: AudioVisualiserProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -43,15 +45,31 @@ export default function AudioVisualiser({
 
       for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i];
-        canvasCtx.fillStyle = `rgb(${barHeight + 100}, 50, 50)`;
-        canvasCtx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight);
+
+        let r = 0,
+          g = 0,
+          b = 0;
+        switch (colour) {
+          case "red":
+            r = barHeight + 100;
+            break;
+          case "green":
+            g = barHeight + 100;
+            break;
+          case "blue":
+            b = barHeight + 100;
+            break;
+        }
+
+        canvasCtx.fillStyle = `rgb(${r},${g},${b})`;
+        canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
         x += barWidth + 1;
       }
     }
 
     draw();
     return () => cancelAnimationFrame(drawVisual);
-  }, [audioCtx, analyserSource]);
+  }, [audioCtx, analyserSource, colour]);
 
   return (
     <canvas
