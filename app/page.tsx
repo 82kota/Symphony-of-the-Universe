@@ -20,7 +20,7 @@ export default function Home() {
         <div>
           <button
             type="button"
-            className="text-4xl px-20 py-2 border-2 border-white rounded-full  text-white cursor-pointer hover:border-purple-500 hover:text-purple-500 hover:shadow-2xl transition-all duration-200"
+            className="text-4xl px-20 py-2 border-2 border-white rounded-full  text-white cursor-pointer hover:border-purple-400 hover:text-purple-400 hover:shadow-2xl transition-all duration-200"
           >
             Play
           </button>
