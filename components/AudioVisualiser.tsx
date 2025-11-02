@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 interface AudioVisualiserProps {
   audioCtx: AudioContext;
   analyserSource: MediaElementAudioSourceNode;
-  colour?: "red" | "green" | "blue";
+  colour?: "red" | "green" | "blue" | "purple" | "orange" | "white";
 }
 
 export default function AudioVisualiser({
@@ -46,18 +46,32 @@ export default function AudioVisualiser({
       for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i];
 
+        //colours
         let r = 0,
           g = 0,
           b = 0;
         switch (colour) {
           case "red":
-            r = barHeight + 100;
+            r = 255;
             break;
           case "green":
-            g = barHeight + 100;
+            g = 255;
             break;
           case "blue":
-            b = barHeight + 100;
+            b = 255;
+            break;
+          case "purple":
+            r = 125;
+            b = 255;
+            break;
+          case "orange":
+            r = 255;
+            g = 125;
+            break;
+          case "white":
+            r = 255;
+            g = 255;
+            b = 255;
             break;
         }
 

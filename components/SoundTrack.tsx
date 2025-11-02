@@ -12,7 +12,7 @@ interface SoundTrackProps {
   src: string;
   className?: string;
   label: string;
-  colour?: "red" | "green" | "blue";
+  colour?: "red" | "green" | "blue" | "purple" | "orange" | "white";
 }
 
 export type SoundTrackHandle = {

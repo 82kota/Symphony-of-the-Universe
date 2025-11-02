@@ -26,25 +26,24 @@ export default function ListenPage() {
 
   return (
     <div className="h-full flex flex-col items-center justify-center pt-30 gap-5 bg-black">
-      {/*Todo: refactor into components*/}
       <SoundTrack
         src="/audio/soft-piano-100-bpm-121529.mp3"
         className="grow"
-        colour="red"
+        colour="orange"
         label="Moon meteorites"
         ref={(el) => addRef(el, 0)}
       />
       <SoundTrack
         src="/audio/sound-baord-spongebob.mp3"
         className="grow"
-        colour="green"
+        colour="purple"
         label="Solar radiation"
         ref={(el) => addRef(el, 1)}
       />
       <SoundTrack
         src="/audio/hotline-bling-drake-low-quality-made-with-Voicemod.mp3"
         className="grow"
-        colour="blue"
+        colour="white"
         label="Solar flares"
         ref={(el) => addRef(el, 2)}
       />
